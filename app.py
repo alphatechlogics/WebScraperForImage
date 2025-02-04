@@ -4,8 +4,16 @@ import time
 import base64
 from datetime import datetime
 from google.cloud import vision
+from google.oauth2 import service_account
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+
+# Define the path to your credentials file
+credentials_path = "indigo-gecko-424108-j5-d65f47c0f415.json.json"
+
+# Load the credentials and create a credentials object
+credentials = service_account.Credentials.from_service_account_file(
+    credentials_path)
 
 
 def reverse_image_search(image_path):
@@ -13,7 +21,9 @@ def reverse_image_search(image_path):
     Uses Google Cloud Vision API’s web detection to perform a reverse image search
     and return a list of URLs of pages with matching images.
     """
-    client = vision.ImageAnnotatorClient()
+    # Pass the credentials to the client
+    client = vision.ImageAnnotatorClient(credentials=credentials)
+
     with io.open(image_path, 'rb') as image_file:
         content = image_file.read()
     image = vision.Image(content=content)
@@ -39,7 +49,9 @@ def extract_text_from_image(image_path):
     """
     Uses Vision API’s text detection to extract any text present in the image.
     """
-    client = vision.ImageAnnotatorClient()
+    # Pass the credentials to the client
+    client = vision.ImageAnnotatorClient(credentials=credentials)
+
     with io.open(image_path, 'rb') as image_file:
         content = image_file.read()
     image = vision.Image(content=content)
