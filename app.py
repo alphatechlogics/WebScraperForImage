@@ -9,7 +9,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
 # Define the path to your credentials file
-credentials_path = "indigo-gecko-424108-j5-d65f47c0f415.json.json"
+credentials_path = "credentials.json"
 
 # Load the credentials and create a credentials object
 credentials = service_account.Credentials.from_service_account_file(
@@ -82,7 +82,7 @@ def save_page_as_pdf(driver, url, output_path):
 
 
 def main():
-    image_file_path = "test.png"  # Replace with your image file path
+    image_file_path = "test1.jpg"   #"test1.jpg"   Replace with your image file path
 
     # (Optional) Extract text from the image.
     extracted_text = extract_text_from_image(image_file_path)
